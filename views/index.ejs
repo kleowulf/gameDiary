@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Diary</title>
+</head>
+<body>
+
+    <h1>Board Game Diary</h1>
+    <h2>New Game Entry:</h2>
+
+    <form action="/addAGame" method="POST">
+        <input type="text" placeholder="Game Name" name="gameName">
+        <input type="number" placeholder="0-10" name="gameRating">
+        <input type="textarea" placeholder="your thoughts on game" name="gameNotes">
+        <input type="submit" id="newGameBtn">
+    </form>
+
+    <ul class="gamelist">
+
+        <% for(let i=0; i < items.length; i++) {%>
+                <li class="games">
+                    <span><strong><%= items[i].Name %></strong></span><br>
+                    <span>Rating: <%= items[i].Rating %></span><br>
+                    <span><%= items[i].Notes %></span>
+                </li>
+        <% } %>
+
+    </ul>
+
+
+
+    
+
+    <script src='/js/main.js'></script>
+</body>
+</html>
