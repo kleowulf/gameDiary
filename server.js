@@ -25,10 +25,10 @@ app.get('/', async (request, response)=>{
     console.log(gameList)
 })
 
-app.post('/addTodo', (request, response) => {
-    db.collection('todos').insertOne({thing: request.body.todoItem, completed: false})
+app.post('/addAGame', (request, response) => {
+    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: request.body.gameRating, Notes: request.body.gameNotes})
     .then(result => {
-        console.log('Todo Added')
+        console.log('game added')
         response.redirect('/')
     })
     .catch(error => console.error(error))
