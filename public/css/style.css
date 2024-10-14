@@ -2,3 +2,18 @@ li {
     padding-top: 10px;
  
 }
+
+#gameNotes {
+    height: 50px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+h1, h2, form {
+    width: 100%;
+}
