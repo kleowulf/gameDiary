@@ -34,6 +34,15 @@ app.post('/addAGame', (request, response) => {
     .catch(error => console.error(error))
 })
 
+app.delete('/deleteGame', (request, response)=>{
+    db.collection('GameInfo').deleteOne({Name: request.body.itemsFromJS})
+    .then(result => {
+        console.log('Game deleted')
+        response.json('Game Deleted')
+    })
+    .catch(error => console.error(error))
+})
+
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
