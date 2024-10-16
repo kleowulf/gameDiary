@@ -26,7 +26,7 @@ app.get('/', async (request, response)=>{
 })
 
 app.post('/addAGame', (request, response) => {
-    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: request.body.gameRating, Notes: request.body.gameNotes})
+    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: request.body.gameRating, Notes: request.body.gameNotes, Plays: request.body.gamePlays})
     .then(result => {
         console.log('game added')
         response.redirect('/')
@@ -39,6 +39,17 @@ app.delete('/deleteGame', (request, response)=>{
     .then(result => {
         console.log('Game deleted')
         response.json('Game Deleted')
+    })
+    .catch(error => console.error(error))
+})
+
+app.put('/increasePlays', (request, response)=>{
+    db.collection('GameInfo').updateOne({Name: request.body.itemFromJS}, {
+        
+    })
+    .then(result => {
+        console.log('Play Increase')
+        response.json('Play increase')
     })
     .catch(error => console.error(error))
 })

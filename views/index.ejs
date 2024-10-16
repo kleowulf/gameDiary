@@ -16,6 +16,7 @@
         <form action="/addAGame" method="POST">
             <input type="text" placeholder="Game Name" name="gameName">
             <input type="number" placeholder="0-10" name="gameRating">
+            <input type="number" placeholder="0-10" name="gamePlays">
             <input id="gameNotes" type="textarea" placeholder="your thoughts on game" name="gameNotes" wrap="hard">
             <input type="submit" id="newGameBtn">
         </form>
@@ -28,6 +29,7 @@
                     <span><strong><%= items[i].Name %></strong></span><br>
                     <span>Rating: <%= items[i].Rating %></span><br>
                     <span><%= items[i].Notes %></span><br>
+                    <span><%= items[i].Plays %> Plays </span><span class="increase">+</span><br>
                     <span class="delete">Delete</span>
                 </li>
         <% } %>
