@@ -45,7 +45,9 @@ app.delete('/deleteGame', (request, response)=>{
 
 app.put('/increasePlays', (request, response)=>{
     db.collection('GameInfo').updateOne({Name: request.body.itemFromJS}, {
-        
+        $set: {
+            Plays: request.body.playsFromJS + 1
+          }
     })
     .then(result => {
         console.log('Play Increase')

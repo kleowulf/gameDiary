@@ -31,13 +31,16 @@ async function deleteItem (){
 
 async function increasePlays() {
     const name = this.parentNode.childNodes[1].innerText
+    const plays = this.parentNode.childNodes[5].innerText
+    console.log(plays)
 
     try{
         const response = await fetch('increasePlays', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                'itemsFromJS' : name
+                'itemsFromJS' : name,
+                'playsFromJS' : plays
             })
         })
 
