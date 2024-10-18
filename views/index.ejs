@@ -9,33 +9,35 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <main>
-        <h1>Board Game Diary</h1>
+    <h1>Board Game Diary</h1>
+    <main class="halfDisplay">
+       
         <h2>New Game Entry:</h2>
 
         <form action="/addAGame" method="POST">
-            <input type="text" placeholder="Game Name" name="gameName">
-            <input type="number" placeholder="0-10" name="gameRating">
-            <input type="number" placeholder="0-10" name="gamePlays">
-            <input id="gameNotes" type="textarea" placeholder="your thoughts on game" name="gameNotes" wrap="hard">
+            <input type="text" placeholder="Game Name" name="gameName"><br>
+            <input type="number" placeholder="Rating 0-10" name="gameRating"><br>
+            <input type="number" placeholder="How many plays" name="gamePlays"><br>
+            <input id="gameNotes" type="textarea" placeholder="your thoughts on game" name="gameNotes" wrap="hard"><br>
             <input type="submit" id="newGameBtn">
         </form>
     </main>
 
-    <ul class="gamelist">
+    <div class="halfDisplay">
+        <ul class="gamelist">
 
-        <% for(let i=0; i < items.length; i++) {%>
-                <li class="games">
-                    <span><strong><%= items[i].Name %></strong></span><br>
-                    <span>Rating: <%= items[i].Rating %></span><br>
-                    <span><%= items[i].Notes %></span><br>
-                    <span><%= items[i].Plays %></span><span class="increase">+</span><br>
-                    <span class="delete">Delete</span>
-                </li>
-        <% } %>
+            <% for(let i=0; i < items.length; i++) {%>
+                    <li class="games">
+                        <span><strong><%= items[i].Name %></strong></span><br>
+                        <span>Rating: <%= items[i].Rating %></span><br>
+                        <span><%= items[i].Notes %></span><br>
+                        <span><%= items[i].Plays %></span><span class="increase">+</span><br>
+                        <span class="delete">Delete</span>
+                    </li>
+            <% } %>
 
-    </ul>
-
+        </ul>
+    </div>
 
 
     
