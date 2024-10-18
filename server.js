@@ -43,12 +43,13 @@ app.delete('/deleteGame', (request, response)=>{
     .catch(error => console.error(error))
 })
 
-app.put('/increasePlays', (request, response)=>{
-    db.collection('GameInfo').updateOne({Name: request.body.itemFromJS}, {
-        $set: {
-            Plays: request.body.playsFromJS + 1
-          }
-    })
+app.put('/increasePlays', (request, response) => {
+    db.collection('GameInfo').updateOne(
+        { Name: request.body.itemsFromJS }, // Only match the document by Name
+        { 
+            $inc: { Plays: 1 } // Increment Plays by 1
+        }
+    )
     .then(result => {
         console.log('Play Increase')
         response.json('Play increase')

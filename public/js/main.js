@@ -31,8 +31,9 @@ async function deleteItem (){
 
 async function increasePlays() {
     const name = this.parentNode.childNodes[1].innerText
-    const plays = this.parentNode.childNodes[5].innerText
+    const plays = Number(this.parentNode.childNodes[10].innerText)
     console.log(plays)
+    console.log(name)
 
     try{
         const response = await fetch('increasePlays', {
