@@ -22,11 +22,18 @@ app.use(express.json())
 app.get('/', async (request, response)=>{
     const gameList = await db.collection('GameInfo').find().toArray()
     response.render('index.ejs', {items: gameList})
-    console.log(gameList)
+
+})
+
+app.get('/searchAGame', async (request, response)=>{
+    const gameName = request.query.gameName;
+    const game =  await db.collection('GameInfo').find({ Name: gameName}).toArray()
+    response.render('index.ejs', {items: game})
+    console.log(game)
 })
 
 app.post('/addAGame', (request, response) => {
-    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: request.body.gameRating, Notes: request.body.gameNotes, Plays: request.body.gamePlays})
+    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: request.body.gameRating, Notes: request.body.gameNotes, Plays: Number(request.body.gamePlays)})
     .then(result => {
         console.log('game added')
         response.redirect('/')

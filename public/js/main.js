@@ -9,6 +9,8 @@ Array.from(increaseBtn).forEach((element)=>{
     element.addEventListener('click', increasePlays)
 })
 
+document.getElementById('searchBtn').addEventListener('click', searchGame)
+
 async function deleteItem (){
     const name = this.parentNode.childNodes[1].innerText
 
@@ -48,6 +50,24 @@ async function increasePlays() {
         const data = await response.json()
         console.log(data)
         window.location.reload()
+    }catch(err){
+        console.log(err)
+}
+}
+
+async function searchGame () {
+    const gameName = document.getElementById("searchText").innerText
+
+    try{
+        const response = await fetch(`searchAGame?gameName=${gameName}`, {
+            method: 'get',
+            headers: {'Content-Type': 'application/json'},
+
+        })
+
+        const data = await response.json()
+        console.log(data)
+   
     }catch(err){
         console.log(err)
 }

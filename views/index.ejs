@@ -10,6 +10,7 @@
 </head>
 <body>
     <h1>Board Game Diary</h1>
+
     <main class="halfDisplay">
        
         <h2>New Game Entry:</h2>
@@ -20,6 +21,12 @@
             <input type="number" placeholder="How many plays" name="gamePlays"><br>
             <input id="gameNotes" type="textarea" placeholder="your thoughts on game" name="gameNotes" wrap="hard"><br>
             <input type="submit" id="newGameBtn">
+        </form><br><br>
+
+        <form action="/searchAGame" method="GET">
+            <label >Search</label>
+            <input type="text" placeholder="Game you want to search" name="searchGame" id="searchText">
+            <input type ="submit" id="searchBtn">
         </form>
     </main>
 
