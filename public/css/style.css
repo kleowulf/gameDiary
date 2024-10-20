@@ -25,3 +25,8 @@ h1{
     display: flex;
     justify-content: center;
 }
+
+.increase {
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -26,7 +26,8 @@ app.get('/', async (request, response)=>{
 })
 
 app.get('/searchAGame', async (request, response)=>{
-    const gameName = request.query.gameName;
+    const gameName = request.query.searchGame;
+    console.log(gameName)
     const game =  await db.collection('GameInfo').find({ Name: gameName}).toArray()
     response.render('index.ejs', {items: game})
     console.log(game)

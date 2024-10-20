@@ -56,7 +56,7 @@ async function increasePlays() {
 }
 
 async function searchGame () {
-    const gameName = document.getElementById("searchText").innerText
+    const gameName = document.getElementById("searchText").value
 
     try{
         const response = await fetch(`searchAGame?gameName=${gameName}`, {
