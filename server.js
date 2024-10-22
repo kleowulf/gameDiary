@@ -21,6 +21,8 @@ app.use(express.json())
 
 app.get('/', async (request, response)=>{
     const gameList = await db.collection('GameInfo').find().toArray()
+
+
     response.render('index.ejs', {items: gameList})
 
 })
