@@ -1,8 +1,10 @@
 const express = require ('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
+const ObjectId = require('mongodb').ObjectId
 const PORT = 2121
 require('dotenv').config()
+
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
@@ -21,7 +23,7 @@ app.use(express.json())
 
 app.get('/', async (request, response)=>{
     const gameList = await db.collection('GameInfo').find().toArray()
-
+    console.log(gameList)
 
     response.render('index.ejs', {items: gameList})
 
@@ -54,15 +56,19 @@ app.delete('/deleteGame', (request, response)=>{
 })
 
 app.put('/increasePlays', (request, response) => {
+   console.log(request.body.itemId)
     db.collection('GameInfo').updateOne(
-        { Name: request.body.itemsFromJS }, // Only match the document by Name
+        { _id: new ObjectId(request.body.itemId) }, // Only match the document by Name
         { 
             $inc: { Plays: 1 } // Increment Plays by 1
         }
+
+       
     )
     .then(result => {
         console.log('Play Increase')
         response.json('Play increase')
+        console.log(result)
     })
     .catch(error => console.error(error))
 })

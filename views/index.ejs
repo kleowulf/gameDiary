@@ -44,7 +44,7 @@
         <ul class="gamelist">
 
             <% for(let i=0; i < items.length; i++) {%>
-                    <li class="games">
+                    <li class="games" id="<%= items[i]._id %>">
                         <span><strong><%= items[i].Name %></strong></span><br>
                         <span>Rating: <%= items[i].Rating %></span><br>
                         <span><%= items[i].Notes %></span><br>
