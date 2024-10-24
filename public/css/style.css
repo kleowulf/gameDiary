@@ -21,12 +21,12 @@ h1, h2, form {
     padding-left: 5%;
 }
 
-h1{
+h1, h2{
     display: flex;
     justify-content: center;
 }
 
-.increase {
-    font-weight: bold;
+.increase, .delete {
+    
     cursor: pointer;
 }

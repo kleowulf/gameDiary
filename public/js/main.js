@@ -12,14 +12,14 @@ Array.from(increaseBtn).forEach((element)=>{
 document.getElementById('searchBtn').addEventListener('click', searchGame)
 
 async function deleteItem (){
-    const name = this.parentNode.childNodes[1].innerText
+    const id = this.parentNode.id
 
     try{
         const response = await fetch('deleteGame', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                'itemsFromJS' : name
+                'itemId' : id
             })
         })
 

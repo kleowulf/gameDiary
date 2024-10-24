@@ -22,10 +22,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.get('/', async (request, response)=>{
-    const gameList = await db.collection('GameInfo').find().toArray()
-    console.log(gameList)
+    const gameList = await db.collection('GameInfo').find().sort({Plays: -1}).toArray()
+    const gameCount = await db.collection('GameInfo').countDocuments()
+   
 
-    response.render('index.ejs', {items: gameList})
+    response.render('index.ejs', {items: gameList, count: gameCount})
 
 })
 
@@ -33,7 +34,8 @@ app.get('/searchAGame', async (request, response)=>{
     const gameName = request.query.searchGame;
     console.log(gameName)
     const game =  await db.collection('GameInfo').find({ Name: gameName}).toArray()
-    response.render('index.ejs', {items: game})
+    const gameCount = await db.collection('GameInfo').countDocuments()
+    response.render('index.ejs', {items: game, count:gameCount})
     console.log(game)
 })
 
@@ -47,7 +49,7 @@ app.post('/addAGame', (request, response) => {
 })
 
 app.delete('/deleteGame', (request, response)=>{
-    db.collection('GameInfo').deleteOne({Name: request.body.itemsFromJS})
+    db.collection('GameInfo').deleteOne({_id: new ObjectId(request.body.itemId)})
     .then(result => {
         console.log('Game deleted')
         response.json('Game Deleted')
