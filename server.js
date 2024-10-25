@@ -39,8 +39,17 @@ app.get('/searchAGame', async (request, response)=>{
     console.log(game)
 })
 
+app.get('/searchByRating', async (request, response)=>{
+    const rating = Number(request.query.rating);
+    console.log(rating)
+    const games =  await db.collection('GameInfo').find({ Rating: rating}).toArray()
+    const gameCount = games.length
+    response.render('index.ejs', {items: games, count:gameCount})
+    console.log(games)
+})
+
 app.post('/addAGame', (request, response) => {
-    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: request.body.gameRating, Notes: request.body.gameNotes, Plays: Number(request.body.gamePlays)})
+    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: Number(request.body.gameRating), Notes: request.body.gameNotes, Plays: Number(request.body.gamePlays)})
     .then(result => {
         console.log('game added')
         response.redirect('/')

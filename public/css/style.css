@@ -24,6 +24,7 @@ h1, h2, form {
 h1, h2{
     display: flex;
     justify-content: center;
+    color: brown;
 }
 
 .increase, .delete {

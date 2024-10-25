@@ -1,5 +1,6 @@
 const deleteBtn = document.querySelectorAll('.delete')
 const increaseBtn = document.querySelectorAll('.increase')
+const ratingSelector = document.getElementById("ratingsSelctor")
 
 Array.from(deleteBtn).forEach((element)=>{
     element.addEventListener('click', deleteItem)
@@ -8,6 +9,8 @@ Array.from(deleteBtn).forEach((element)=>{
 Array.from(increaseBtn).forEach((element)=>{
     element.addEventListener('click', increasePlays)
 })
+
+ratingSelector.addEventListener("change", filterByRating)
 
 document.getElementById('searchBtn').addEventListener('click', searchGame)
 
@@ -69,6 +72,25 @@ async function searchGame () {
         })
 
         const data = await response.json()
+        console.log(data)
+   
+    }catch(err){
+        console.log(err)
+}
+}
+
+async function filterByRating () {
+    console.log("rating selected")
+    const gameRating = Number(ratingSelector.value)
+
+    try{
+        const response = await fetch(`searchByRating?rating=${gameRating}`, {
+            method: 'get',
+            headers: {'Content-Type': 'application/json'},
+
+        })
+
+        const data = await response.json
         console.log(data)
    
     }catch(err){
