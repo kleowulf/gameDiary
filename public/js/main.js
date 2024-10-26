@@ -71,8 +71,8 @@ async function searchGame () {
 
         })
 
-        const data = await response.json()
-        console.log(data)
+        document.write(await response.text())
+      
    
     }catch(err){
         console.log(err)
@@ -90,8 +90,7 @@ async function filterByRating () {
 
         })
 
-        const data = await response.json
-        console.log(data)
+        window.location.href = `searchByRating?rating=${gameRating}`
    
     }catch(err){
         console.log(err)
