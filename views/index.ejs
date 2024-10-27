@@ -9,57 +9,15 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Board Game Diary</h1>
-    <h2>Game Count: <%= count %></h2>
 
-    <main class="halfDisplay">
        
-        <h2>New Game Entry:</h2>
+        <h2>See Your Game Library</h2>
+        <a href="/games">GAMES</a>
 
-        <form action="/addAGame" method="POST">
-            <input type="text" placeholder="Game Name" name="gameName"><br>
-            <input type="number" placeholder="Rating 0-10" name="gameRating"><br>
-            <input type="number" placeholder="How many plays" name="gamePlays"><br>
-            <input id="gameNotes" type="textarea" placeholder="your thoughts on game" name="gameNotes" wrap="hard"><br>
-            <input type="submit" id="newGameBtn">
-        </form><br><br>
-
-        <form action="/searchAGame" method="GET">
-            <label >Search</label>
-            <input type="text" placeholder="Game you want to search" name="searchGame" id="searchText">
-            <input type ="submit" id="searchBtn">
-        </form><br>
-
-        <label for="Ratings">Sort by Rating</label>
-
-        <select name="ratings" id="ratingsSelctor">
-          <option class="rating" value="10">10</option>
-          <option class="rating" value="8">8 and up</option>
-          <option class="rating" value="6">6 and up</option>
-          <option class="rating" value="5">5 and below</option>
-        </select>
-
-    </main>
-
-    <div class="halfDisplay">
-        <ul class="gamelist">
-
-            <% for(let i=0; i < items.length; i++) {%>
-                    <li class="games" id="<%= items[i]._id %>">
-                        <span><strong><%= items[i].Name %></strong></span><br>
-                        <span>Rating: <%= items[i].Rating %></span><br>
-                        <span><%= items[i].Notes %></span><br>
-                        <span><%= items[i].Plays %></span><span class="increase">+</span><br>
-                        <span class="delete">Delete</span>
-                    </li>
-            <% } %>
-
-        </ul>
-    </div>
 
 
     
 
-    <script src='/js/main.js'></script>
+
 </body>
 </html>

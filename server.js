@@ -1,89 +1,112 @@
-const express = require ('express')
+const express = require('express')
 const app = express()
-const MongoClient = require('mongodb').MongoClient
-const ObjectId = require('mongodb').ObjectId
-const PORT = 2121
-require('dotenv').config()
+const connectDB = require('./config/database')
+const homeRoutes = require('./routes/home')
+const gameRoutes = require('./routes/games')
 
+require('dotenv').config({path: './config/.env'})
 
-let db,
-    dbConnectionStr = process.env.DB_STRING,
-    dbName = 'BoardGames'
-
-MongoClient.connect(dbConnectionStr, {useUnifiedTopology: true})
-    .then(client => {
-        console.log(`Connected to ${dbName} Database`)
-        db = client.db(dbName)
-    })
+connectDB()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get('/', async (request, response)=>{
-    const gameList = await db.collection('GameInfo').find().sort({Plays: -1}).toArray()
-    const gameCount = await db.collection('GameInfo').countDocuments()
+app.use('/', homeRoutes)
+app.use('/games', gameRoutes)
+ 
+app.listen(process.env.PORT, ()=>{
+    console.log('Server is running, you better catch it!')
+})    
+
+// const express = require ('express')
+// const app = express()
+// const MongoClient = require('mongodb').MongoClient
+// const ObjectId = require('mongodb').ObjectId
+// const PORT = 2121
+// require('dotenv').config()
+
+
+// let db,
+//     dbConnectionStr = process.env.DB_STRING,
+//     dbName = 'BoardGames'
+
+// MongoClient.connect(dbConnectionStr, {useUnifiedTopology: true})
+//     .then(client => {
+//         console.log(`Connected to ${dbName} Database`)
+//         db = client.db(dbName)
+//     })
+
+// app.set('view engine', 'ejs')
+// app.use(express.static('public'))
+// app.use(express.urlencoded({ extended: true }))
+// app.use(express.json())
+
+// app.get('/', async (request, response)=>{
+//     const gameList = await db.collection('GameInfo').find().sort({Plays: -1}).toArray()
+//     const gameCount = await db.collection('GameInfo').countDocuments()
    
 
-    response.render('index.ejs', {items: gameList, count: gameCount})
+//     response.render('index.ejs', {items: gameList, count: gameCount})
 
-})
+// })
 
-app.get('/searchAGame', async (request, response)=>{
-    const gameName = request.query.searchGame;
-    console.log(gameName)
-    const game =  await db.collection('GameInfo').find({ Name: gameName}).toArray()
-    const gameCount = await db.collection('GameInfo').countDocuments()
-    response.render('index.ejs', {items: game, count:gameCount})
-    console.log(game)
-})
+// app.get('/searchAGame', async (request, response)=>{
+//     const gameName = request.query.searchGame;
+//     console.log(gameName)
+//     const game =  await db.collection('GameInfo').find({ Name: gameName}).toArray()
+//     const gameCount = await db.collection('GameInfo').countDocuments()
+//     response.render('index.ejs', {items: game, count:gameCount})
+//     console.log(game)
+// })
 
-app.get('/searchByRating', async (request, response)=>{
-    const rating = Number(request.query.rating);
-    console.log(rating)
-    const games =  await db.collection('GameInfo').find({ Rating: rating}).toArray()
-    const gameCount = games.length
-    response.render('index.ejs', {items: games, count:gameCount})
-    console.log(games)
-})
+// app.get('/searchByRating', async (request, response)=>{
+//     const rating = Number(request.query.rating);
+//     console.log(rating)
+//     const games =  await db.collection('GameInfo').find({ Rating: rating}).toArray()
+//     const gameCount = games.length
+//     response.render('index.ejs', {items: games, count:gameCount})
+//     console.log(games)
+// })
 
-app.post('/addAGame', (request, response) => {
-    db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: Number(request.body.gameRating), Notes: request.body.gameNotes, Plays: Number(request.body.gamePlays)})
-    .then(result => {
-        console.log('game added')
-        response.redirect('/')
-    })
-    .catch(error => console.error(error))
-})
+// app.post('/addAGame', (request, response) => {
 
-app.delete('/deleteGame', (request, response)=>{
-    db.collection('GameInfo').deleteOne({_id: new ObjectId(request.body.itemId)})
-    .then(result => {
-        console.log('Game deleted')
-        response.json('Game Deleted')
-    })
-    .catch(error => console.error(error))
-})
+//     db.collection('GameInfo').insertOne({Name: request.body.gameName, Rating: Number(request.body.gameRating), Notes: request.body.gameNotes, Plays: Number(request.body.gamePlays)})
+//     .then(result => {
+//         console.log('game added')
+//         response.redirect('/')
+//     })
+//     .catch(error => console.error(error))
+// })
 
-app.put('/increasePlays', (request, response) => {
-   console.log(request.body.itemId)
-    db.collection('GameInfo').updateOne(
-        { _id: new ObjectId(request.body.itemId) }, // Only match the document by Name
-        { 
-            $inc: { Plays: 1 } // Increment Plays by 1
-        }
+// app.delete('/deleteGame', (request, response)=>{
+//     db.collection('GameInfo').deleteOne({_id: new ObjectId(request.body.itemId)})
+//     .then(result => {
+//         console.log('Game deleted')
+//         response.json('Game Deleted')
+//     })
+//     .catch(error => console.error(error))
+// })
+
+// app.put('/increasePlays', (request, response) => {
+//    console.log(request.body.itemId)
+//     db.collection('GameInfo').updateOne(
+//         { _id: new ObjectId(request.body.itemId) }, // Only match the document by Name
+//         { 
+//             $inc: { Plays: 1 } // Increment Plays by 1
+//         }
 
        
-    )
-    .then(result => {
-        console.log('Play Increase')
-        response.json('Play increase')
-        console.log(result)
-    })
-    .catch(error => console.error(error))
-})
+//     )
+//     .then(result => {
+//         console.log('Play Increase')
+//         response.json('Play increase')
+//         console.log(result)
+//     })
+//     .catch(error => console.error(error))
+// })
 
-app.listen(process.env.PORT || PORT, ()=>{
-    console.log(`Server running on port ${PORT}`)
-})
+// app.listen(process.env.PORT || PORT, ()=>{
+//     console.log(`Server running on port ${PORT}`)
+// })
