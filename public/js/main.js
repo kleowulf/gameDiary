@@ -18,7 +18,7 @@ async function deleteItem (){
     const id = this.parentNode.id
 
     try{
-        const response = await fetch('deleteGame', {
+        const response = await fetch('/games/deleteGame', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -44,7 +44,7 @@ async function increasePlays() {
     console.log(id)
 
     try{
-        const response = await fetch('increasePlays', {
+        const response = await fetch('/games/increasePlays', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -61,38 +61,38 @@ async function increasePlays() {
 }
 }
 
-async function searchGame () {
-    const gameName = document.getElementById("searchText").value
+// async function searchGame () {
+//     const gameName = document.getElementById("searchText").value
 
-    try{
-        const response = await fetch(`searchAGame?gameName=${gameName}`, {
-            method: 'get',
-            headers: {'Content-Type': 'application/json'},
+//     try{
+//         const response = await fetch(`searchAGame?gameName=${gameName}`, {
+//             method: 'get',
+//             headers: {'Content-Type': 'application/json'},
 
-        })
+//         })
 
-        document.write(await response.text())
+//         document.write(await response.text())
       
    
-    }catch(err){
-        console.log(err)
-}
-}
+//     }catch(err){
+//         console.log(err)
+// }
+// }
 
-async function filterByRating () {
-    console.log("rating selected")
-    const gameRating = Number(ratingSelector.value)
+// async function filterByRating () {
+//     console.log("rating selected")
+//     const gameRating = Number(ratingSelector.value)
 
-    try{
-        const response = await fetch(`searchByRating?rating=${gameRating}`, {
-            method: 'get',
-            headers: {'Content-Type': 'application/json'},
+//     try{
+//         const response = await fetch(`searchByRating?rating=${gameRating}`, {
+//             method: 'get',
+//             headers: {'Content-Type': 'application/json'},
 
-        })
+//         })
 
-        window.location.href = `searchByRating?rating=${gameRating}`
+//         window.location.href = `searchByRating?rating=${gameRating}`
    
-    }catch(err){
-        console.log(err)
-}
-}
+//     }catch(err){
+//         console.log(err)
+// }
+// }

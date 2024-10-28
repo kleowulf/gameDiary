@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const todosController = require('../controllers/todos')
+const gamesController = require('../controllers/games')
 
-router.get('/', todosController.getTodos)
+router.get('/', gamesController.getGames)
 
-router.post('/createTodo', todosController.createTodo)
+router.post('/addAGame', gamesController.addAGame)
 
-router.put('/markComplete', todosController.markComplete)
+router.put('/increasePlays', gamesController.increasePlays)
 
-router.put('/markIncomplete', todosController.markIncomplete)
 
-router.delete('/deleteTodo', todosController.deleteTodo)
+
+router.delete('/deleteGame', gamesController.deleteGame)
 
 module.exports = router
