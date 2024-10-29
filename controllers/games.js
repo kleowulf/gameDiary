@@ -1,4 +1,5 @@
 const Game = require('../models/game')
+const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
     getGames: async (req,res)=>{
@@ -6,6 +7,7 @@ module.exports = {
             const games = await Game.find()
             const gameCount = await Game.countDocuments()
             res.render('games.ejs', {items: games, count: gameCount})
+            console.log(gameCount)
         }catch(err){
             console.log(err)
         }
@@ -21,7 +23,7 @@ module.exports = {
     },
     increasePlays: async (req, res)=>{
         try{
-            await Todo.findOneAndUpdate({_id: new ObjectId(req.body.itemId)},{
+            await Game.findOneAndUpdate({_id: new ObjectId(req.body.itemId)},{
                 $inc: { Plays: 1 }
             })
             console.log('Marked Complete')
@@ -34,7 +36,7 @@ module.exports = {
     deleteGame: async (req, res)=>{
         console.log(req.body.itemId)
         try{
-            await Todo.findOneAndDelete({_id: new ObjectId(req.body.itemId)})
+            await Game.findOneAndDelete({_id: new ObjectId(req.body.itemId)})
             console.log('Deleted')
             res.json('Deleted It')
         }catch(err){
