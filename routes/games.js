@@ -8,7 +8,7 @@ router.post('/addAGame', gamesController.addAGame)
 
 router.put('/increasePlays', gamesController.increasePlays)
 
-
+router.get('/searchAGame', gamesController.searchAGame)
 
 router.delete('/deleteGame', gamesController.deleteGame)
 

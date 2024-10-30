@@ -42,5 +42,24 @@ module.exports = {
         }catch(err){
             console.log(err)
         }
+    },
+
+    searchAGame: async(req, res) => {
+        const gameName = req.query.searchGame;
+
+        try {
+            const game = await Game.find({ Name: gameName });
+            const gameCount = game.length;
+    
+            // Check if the game was found before rendering
+            if (gameCount === 0) {
+                res.status(404).send("No games found.");
+            } else {
+                res.json({ items: game, count: gameCount });
+            }
+        } catch (error) {
+            console.error("Error retrieving game:", error);
+            res.status(500).send("Internal Server Error");
+        }
     }
 }    
