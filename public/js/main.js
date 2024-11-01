@@ -63,21 +63,7 @@ async function increasePlays() {
 
 async function searchGame () {
     const gameName = document.getElementById("searchText").value;
-
-    try {
-        const res = await fetch(`/searchAGame?searchGame=${encodeURIComponent(gameName)}`, {
-            method: 'get',
-        });
-
-        if (res.redirected) {
-            // Redirect to the new URL if the server renders a new page
-            window.location.href = res.url;
-        } else {
-            console.log(await res.json());
-        }
-    } catch (err) {
-        console.log(err);
-    }
+    window.location.href = `/searchAGame?searchGame=${encodeURIComponent(gameName)}`
 }
 
 async function filterByRating () {

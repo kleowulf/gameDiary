@@ -3,15 +3,21 @@ const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
     getGames: async (req,res)=>{
-        try{
-            const games = await Game.find()
-            const gameCount = await Game.countDocuments()
-            res.render('games.ejs', {items: games, count: gameCount})
-            console.log(gameCount)
-        }catch(err){
-            console.log(err)
+        const gameName = req.query.searchGame;
+        let games;
+    
+        if (gameName) {
+            // If a search term is provided, filter by that name
+            games = await Game.find({ Name: gameName });
+        } else {
+            // Otherwise, fetch all games
+            games = await Game.find({});
         }
+        
+        const gameCount = games.length;
+        res.render('games.ejs', { items: games, count: gameCount });
     },
+
     addAGame: async (req, res)=>{
         try{
             await Game.create({Name: req.body.gameName, Rating: Number(req.body.gameRating), Notes: req.body.gameNotes, Plays: Number(req.body.gamePlays)})
@@ -45,21 +51,11 @@ module.exports = {
     },
 
     searchAGame: async(req, res) => {
-        const gameName = req.query.searchGame;
+const gameName = req.query.searchGame;
+    const game = await Game.find({ Name: gameName });
+    const gameCount = game.length;
 
-        try {
-            const game = await Game.find({ Name: gameName });
-            const gameCount = game.length;
-    
-            // Check if the game was found before rendering
-            if (gameCount === 0) {
-                res.status(404).send("No games found.");
-            } else {
-                res.json({ items: game, count: gameCount });
-            }
-        } catch (error) {
-            console.error("Error retrieving game:", error);
-            res.status(500).send("Internal Server Error");
-        }
-    }
+    // Redirect to the /games route and pass the game data as query parameters or via session data
+    res.redirect(`/games?searchGame=${encodeURIComponent(gameName)}`);
+    }   
 }    
